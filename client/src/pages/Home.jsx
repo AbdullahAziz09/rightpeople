@@ -86,17 +86,25 @@ export default function Home() {
 
       {/* Highlights */}
       <section className="section py-20 sm:py-28">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading
+          eyebrow="What We Bring"
+          title="Built On a Few Simple Principles"
+          description="Every search we run is guided by the same core commitments to employers and candidates alike."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((h, i) => {
             const Icon = highlightIcons[i];
             return (
               <Reveal key={h.title} delay={i * 0.08}>
-                <TiltCard className="h-full rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink-100">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+                <TiltCard className="group relative h-full overflow-hidden rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink-100 transition-shadow hover:shadow-soft">
+                  <span className="pointer-events-none absolute -right-2 -top-4 text-6xl font-extrabold text-ink-50 transition-colors group-hover:text-brand-50">
+                    0{i + 1}
+                  </span>
+                  <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-soft">
                     <Icon size={22} />
                   </div>
-                  <h3 className="mt-5 text-base font-bold text-ink-900">{h.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-500">{h.description}</p>
+                  <h3 className="relative mt-5 text-base font-bold text-ink-900">{h.title}</h3>
+                  <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{h.description}</p>
                 </TiltCard>
               </Reveal>
             );
