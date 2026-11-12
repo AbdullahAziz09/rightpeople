@@ -1,5 +1,8 @@
 import { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import CubeIcon from "../components/CubeIcon";
+import FlipCard from "../components/FlipCard";
 import {
   ArrowUpRight,
   Search,
@@ -10,6 +13,9 @@ import {
   FileSignature,
   Target,
   LineChart,
+  ClipboardList,
+  ListChecks,
+  Handshake,
 } from "lucide-react";
 import Reveal from "../components/Reveal";
 import SectionHeading from "../components/SectionHeading";
@@ -23,6 +29,7 @@ const HeroScene = lazy(() => import("../components/HeroScene"));
 
 const highlightIcons = [Search, ShieldCheck, MessagesSquare, Users2];
 const serviceIcons = [Briefcase, FileSignature, Target, LineChart];
+const processIcons = [ClipboardList, Search, ListChecks, Handshake];
 const highlights = [
   { title: "Strategic Talent Search", description: "Focused sourcing guided by the role, not a generic candidate pool." },
   { title: "Candidate Screening", description: "Every profile is checked against the role's core requirements first." },
@@ -91,21 +98,34 @@ export default function Home() {
           title="Built On a Few Simple Principles"
           description="Every search we run is guided by the same core commitments to employers and candidates alike."
         />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" style={{ perspective: 1400 }}>
           {highlights.map((h, i) => {
             const Icon = highlightIcons[i];
             return (
               <Reveal key={h.title} delay={i * 0.08}>
-                <TiltCard className="group relative h-full overflow-hidden rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink-100 transition-shadow hover:shadow-soft">
-                  <span className="pointer-events-none absolute -right-2 -top-4 text-6xl font-extrabold text-ink-50 transition-colors group-hover:text-brand-50">
-                    0{i + 1}
-                  </span>
-                  <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-soft">
-                    <Icon size={22} />
-                  </div>
-                  <h3 className="relative mt-5 text-base font-bold text-ink-900">{h.title}</h3>
-                  <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{h.description}</p>
-                </TiltCard>
+                <motion.div
+                  style={{ transformStyle: "preserve-3d" }}
+                  animate={{ rotateY: [-6, 6, -6], rotateX: [1, -1, 1], y: [0, -6, 0] }}
+                  transition={{
+                    duration: 6 + i * 0.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.4,
+                  }}
+                >
+                  <TiltCard className="group relative h-full overflow-hidden rounded-2xl bg-white p-6 shadow-card ring-1 ring-ink-100 transition-shadow hover:shadow-soft">
+                    <span className="pointer-events-none absolute -right-2 -top-4 text-6xl font-extrabold text-ink-50 transition-colors group-hover:text-brand-50">
+                      0{i + 1}
+                    </span>
+
+                    <CubeIcon icon={Icon} size={56} />
+
+                    <h3 className="relative mt-5 text-base font-bold text-ink-900">{h.title}</h3>
+                    <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{h.description}</p>
+
+                    <span className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 ring-2 ring-brand-400/40 transition-opacity duration-300 group-hover:opacity-100" />
+                  </TiltCard>
+                </motion.div>
               </Reveal>
             );
           })}
@@ -122,12 +142,8 @@ export default function Home() {
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {coreValues.map((v, i) => (
-              <Reveal key={v.title} delay={i * 0.1}>
-                <TiltCard className="h-full rounded-2xl border border-ink-200 bg-white p-8">
-                  <span className="text-sm font-bold text-brand-600">0{i + 1}</span>
-                  <h3 className="mt-3 text-lg font-bold text-ink-900">{v.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-500">{v.description}</p>
-                </TiltCard>
+              <Reveal key={v.title} delay={i * 0.1} className="h-full">
+                <FlipCard index={i} title={v.title} description={v.description} />
               </Reveal>
             ))}
           </div>
@@ -187,22 +203,76 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Image feature */}
+      <section className="section py-20 sm:py-28">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <div className="relative">
+              <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-brand-200 to-brand-50 blur-2xl" />
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
+                alt="Recruitment consultants reviewing candidates together"
+                loading="lazy"
+                className="aspect-[4/3] w-full rounded-3xl object-cover shadow-card ring-1 ring-ink-100"
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <span className="eyebrow">Behind Every Hire</span>
+            <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl">
+              A Team That Actually Gets to Know Your Business
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-500">
+              We spend time understanding the role, the team, and the
+              culture before we ever reach out to a candidate — so every
+              introduction we make is one worth your time.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-ink-600">
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                Dedicated point of contact for every search
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                Transparent updates at every stage
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
+                Candidates screened against real role requirements
+              </li>
+            </ul>
+            <Link to="/about" className="btn-primary mt-8 inline-flex">
+              Learn More About Us <ArrowUpRight size={16} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       <TestimonialsSection />
 
       {/* How We Work */}
       <section className="bg-ink-50 py-20 sm:py-28">
         <div className="section">
           <SectionHeading eyebrow="How We Work" title="A Clear, Four-Step Process" />
-          <div className="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {howWeWork.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.1}>
-                <div className="relative">
-                  <span className="text-5xl font-extrabold text-brand-100">{item.step}</span>
-                  <h3 className="mt-2 text-base font-bold text-ink-900">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-500">{item.description}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="relative mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="pointer-events-none absolute left-0 right-0 top-8 hidden h-px bg-gradient-to-r from-transparent via-brand-200 to-transparent lg:block" />
+            {howWeWork.map((item, i) => {
+              const Icon = processIcons[i];
+              return (
+                <Reveal key={item.title} delay={i * 0.1}>
+                  <div className="relative">
+                    <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-soft">
+                      <Icon size={26} />
+                      <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-white text-xs font-extrabold text-brand-600 ring-1 ring-brand-100">
+                        {item.step}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 text-base font-bold text-ink-900">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-500">{item.description}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
