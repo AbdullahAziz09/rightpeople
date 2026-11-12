@@ -143,7 +143,7 @@ export default function Home() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {coreValues.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.1} className="h-full">
-                <FlipCard index={i} title={v.title} description={v.description} />
+                <FlipCard index={i} title={v.title} description={v.description} image={v.image} />
               </Reveal>
             ))}
           </div>

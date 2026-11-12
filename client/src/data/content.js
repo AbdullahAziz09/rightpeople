@@ -12,16 +12,22 @@ export const coreValues = [
     title: "People-Focused Approach",
     description:
       "Treats employers and candidates as people rather than transactions, keeping their goals central to every search.",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&crop=faces,entropy&w=800&h=520&q=80",
   },
   {
     title: "Solutions That Fit",
     description:
       "Adapts the search and screening process to each role, organization, and timeline.",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&crop=faces,entropy&w=800&h=520&q=80",
   },
   {
     title: "Clear and Reliable",
     description:
       "Sets honest expectations and communicates plainly throughout recruitment.",
+    image:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&crop=entropy&w=800&h=520&q=80",
   },
 ];
 
@@ -123,6 +129,27 @@ export const testimonials = [
     rating: 4.9,
     quote:
       "A personal approach that paid attention to both the role requirements and the candidate experience.",
+  },
+  {
+    name: "Rashid Al Mansoori",
+    role: "General Manager, Hospitality",
+    rating: 4.8,
+    quote:
+      "They understood our seasonal hiring pressure and still delivered candidates who fit the brand, not just the job description.",
+  },
+  {
+    name: "Priya Nair",
+    role: "Head of Operations, Logistics",
+    rating: 4.7,
+    quote:
+      "Every candidate they sent had already been screened against our actual requirements — it saved us weeks of interviews.",
+  },
+  {
+    name: "David Okafor",
+    role: "HR Business Partner, Construction",
+    rating: 4.9,
+    quote:
+      "Responsive, honest about timelines, and they never oversold a candidate just to close the role faster.",
   },
 ];
 
